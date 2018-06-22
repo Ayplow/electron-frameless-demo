@@ -1,0 +1,121 @@
+<html>
+
+<body>
+    <div id="titlebar">
+        <button id="min-btn">_</button>
+        <button id="close-btn">X</button>
+    </div>
+    <div id="main">
+        <button id="max-btn">Toggle Maximise</button>
+        <button id="offset-btn">Force Offset</button>
+    </div>
+</body>
+<style>
+    body {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 20px;
+        display: flex;
+        justify-items: center;
+        -webkit-app-region: drag;
+        background: rgb(66,66,66);
+    }
+
+    button {
+        -webkit-app-region: no-drag;
+        display: flex;
+        border: none;
+        padding: none;
+        background: none;
+        margin: none;
+    }
+
+    button:focus {
+        outline: none
+    }
+
+    #titlebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        -webkit-app-region: drag;
+    }
+
+    #titlebar button {
+        height: 20px;
+        width: 20px;
+        background-color: rgba(0, 0, 0, 0);
+        transition: background-color 150ms ease;
+    }
+
+    #titlebar button:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    #titlebar #close-btn:hover {
+        background-color: rgba(200, 33, 33, 1);
+    }
+
+    /**/
+
+    #main {
+        margin:10px;
+        height:calc(100% - 20px);
+        width:calc(100% - 20px);
+    }
+    #main button {
+        background: rgb(144, 144, 255);
+        width: 100%;
+        height: calc(50% - 5px);
+        text-align: center;
+        justify-content: center;
+    }
+    #main button:first-child {        
+        margin-bottom: 10px;
+    }
+</style>
+<script>
+    const BrowserWindow = require('electron').remote.BrowserWindow;
+
+    function init() {
+        document.getElementById("offset-btn").addEventListener('click', function () {
+            var win = BrowserWindow.getFocusedWindow();
+            // So long as either A) The y offset is above 0 a.k.a not on the screen border or B) The window isn't maximised,
+            // repeatedly maximise and unmaximise the window
+            while (win.getPosition()[1] < 0 || !(win.isMaximized())) {
+                if (win.isMaximized()) {
+                    win.unmaximize()
+                } else {
+                    win.maximize()
+                };
+            }
+
+        });
+        document.getElementById("min-btn").addEventListener("click", function () {
+            var win = BrowserWindow.getFocusedWindow();
+            win.minimize();
+        });
+        document.getElementById("max-btn").addEventListener("click", function () {
+            var win = BrowserWindow.getFocusedWindow();
+            if (win.isMaximized()) {
+                win.unmaximize()
+            } else {
+                win.maximize()
+            };
+        });
+        document.getElementById("close-btn").addEventListener("click", function () {
+            var win = BrowserWindow.getFocusedWindow();
+            win.close();
+        });
+    };
+
+    window.onload = function () {
+        init();
+    };
+</script>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "electron-frameless-demo",
+  "version": "1.0.0",
+  "description": "A quick mockup to demonstrate the window offset issue still plaguing all frameless electron applications today.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomSputz/electron-frameless-demo.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TomSputz/electron-frameless-demo/issues"
+  },
+  "homepage": "https://github.com/TomSputz/electron-frameless-demo#readme",
+  "dependencies": {
+    "electron": "^2.0.3"
+  }
+}
